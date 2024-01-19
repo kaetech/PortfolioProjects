@@ -3,10 +3,6 @@ FROM [Portfolio Projects]..CovidDeaths
 Where continent is not null
 ORDER BY 3,4
 
---SELECT * 
---FROM [Portfolio Projects]..CovidVaccinations
---ORDER BY 3,4
-
 --Select data that we are going to be using 
 
 SELECT Location, date, total_cases, new_cases, total_deaths, population
@@ -52,7 +48,6 @@ GROUP BY continent
 ORDER BY TotalDeaths DESC
 
 --testing for more accurate numbers 
--- numbers are more accurate but I am not sure how to deal with nulls considering data cleaning and further analysis and visualizations 
 SELECT location, MAX(cast (total_deaths as int)) AS TotalDeaths
 FROM [Portfolio Projects]..CovidDeaths
 --Where location like '%states%'
@@ -69,8 +64,7 @@ Where continent is not null
 GROUP BY date
 ORDER BY 1,2 
 
--- Now to play around with the VAX table
--- Total population vs vax 
+-- Total population vs vaccinations 
 SELECT deaths.continent, deaths.location, deaths.date, deaths.population, vax.new_vaccinations, 
 SUM(cast(vax.new_vaccinations as float)) OVER (Partition by deaths.location ORDER BY deaths.location, deaths.date) RollingVaxCount
 FROM [Portfolio Projects]..CovidDeaths deaths
